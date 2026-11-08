@@ -1,0 +1,77 @@
+<!-- ... existing code ... -->
+    <main class="relative z-10 w-full max-w-2xl text-center flex flex-col items-center mt-10 fade-in-up">
+        
+        <!-- Header -->
+        <img src="56672.png" alt="Happy Bday!" style="max-width: 90%; max-height: 250px; width: auto; object-fit: contain; border-radius: 8px; margin-bottom: 20px;" class="shadow-lg">
+
+        <!-- Interactive Icons -->
+<!-- ... existing code ... -->
+        <!-- Panel 2: Matcha Latte -->
+        <div id="matcha-panel" class="panel glass p-6 inline-block mx-auto mb-10">
+            <img src="0b24c7f8bbd48209c29ee5e71da83801.gif" alt="Ghibli Cake" style="max-width:100%; border-radius:8px;" class="mx-auto block shadow-sm">
+        </div>
+
+        <!-- Panel 3: Camera / Polaroid -->
+<!-- ... existing code ... -->
+            <!-- Polaroid View -->
+            <div id="polaroid-view" class="hidden flex-col items-center">
+                <div class="polaroid-frame mb-6">
+                    <img id="polaroid-image" src="" alt="Polaroid" style="width: auto; max-width: 100%; height: 100%; object-fit: contain; max-height: 65vh; border-radius: 4px; background-color: #f3f4f6;">
+                </div>
+                <button onclick="hidePolaroid()" class="bg-white/50 border border-gray-400 hover:bg-white text-sm font-semibold text-gray-700 py-2 px-6 rounded-full transition shadow-sm">
+                    Kembali
+                </button>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Audio & Controls -->
+    <audio id="bg-music" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" loop preload="auto"></audio>
+    <button id="music-toggle" class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full glass flex items-center justify-center text-2xl shadow-lg transition-transform hover:scale-110" onclick="toggleMusic()">🎵</button>
+
+    <!-- Scripts -->
+    <script>
+<!-- ... existing code ... -->
+        function hidePolaroid() {
+            polaroidView.classList.add('hidden');
+            polaroidView.classList.remove('flex');
+            
+            charSelection.classList.remove('hidden');
+            charSelection.classList.add('flex');
+            
+            polaroidImg.src = '';
+        }
+
+        // Music Logic
+        const bgMusic = document.getElementById('bg-music');
+        const musicToggle = document.getElementById('music-toggle');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicToggle.innerText = '🎵';
+                isPlaying = false;
+            } else {
+                bgMusic.play();
+                musicToggle.innerText = '⏸️';
+                isPlaying = true;
+            }
+        }
+
+        // Autoplay attempt on first interaction
+        document.body.addEventListener('click', function() {
+            if (!isPlaying) {
+                bgMusic.play().then(() => {
+                    musicToggle.innerText = '⏸️';
+                    isPlaying = true;
+                }).catch(err => {
+                    console.log('Autoplay prevented by browser.');
+                });
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>
